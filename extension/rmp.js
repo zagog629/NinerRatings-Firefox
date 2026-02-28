@@ -39,3 +39,12 @@ async function queryRMP(name) {
     }
     return professors[0].node;
 }
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.professorName) {
+        queryRMP(request.professorName)
+            .then(data => sendResponse({success:true ,data}))
+            .catch(err => sendResponse({success:false, error: err.message}));
+        return true;
+    }
+});
