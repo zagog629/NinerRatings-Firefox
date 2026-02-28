@@ -1,0 +1,19 @@
+{
+    "manifest_version": 3,
+    "name": "NinerRatings",
+    "version": "1.0",
+    "description": "Chrome extension to improve UNCC class registration and browse process",
+    "content_scripts": [
+        {
+            "matches": [
+        "*://selfservice.uncc.edu/StudentRegistrationSsb/ssb/classSearch/*",
+        "*://selfservice.uncc.edu/StudentRegistrationSsb/ssb/classRegistration/*"
+            ],
+            "js": ["extension/content.js"],
+            "css": ["extension/content.css"]
+        }
+    ],
+    "background" : {
+        "service_worker": "extension/background.js"
+    }
+}
