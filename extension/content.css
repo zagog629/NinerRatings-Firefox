@@ -22,6 +22,11 @@
     min-width: 220px;
 }
 
+
+.professor-name:hover {
+    text-decoration: underline;
+}
+
 .professor-name-plain {
     font-size: 12px;
     font-weight: 600;
@@ -29,7 +34,7 @@
 }
 
 .professor-container:hover .professor-stats {
-    display: block;
+    display: flex;
 }
 
 .professor-stats span {
@@ -52,6 +57,22 @@
     font-weight: 700;
     color: white;
     line-height: 1;
+}
+
+.rating-label {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.7)
+}
+
+.rating-details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.rating-details span {
+    font-size: 12px;
+    color: #e0e0e0;
 }
 
 td[xe-field="instructor"] {
