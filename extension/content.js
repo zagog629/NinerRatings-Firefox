@@ -11,14 +11,21 @@ function getRatingColor(rating) {
 function injectOverview(cell, data) {
     const overview = document.createElement('div');
     overview.className = 'professor-container';
+    const ratingColor = getRatingColor(data.avgRating);
     overview.innerHTML = `
     <a href="https://www.ratemyprofessors.com/professor/${data.legacyId}" target="_blank">
             ${data.firstName} ${data.lastName}
     </a>
     <div class="professor-stats">
-        <span>Average Rating: ${data.avgRating}</span>
-        <span>Average Difficulty: ${data.avgDifficulty}</span>
-        <span>${Math.round(data.wouldTakeAgainPercent)}% would take again</span>
+        <div class="rating-box" style="background:${ratingColor}">
+            <span class="rating-number">${data.avgRating}</span>
+            <span class="rating-label">/ 5 </span>
+        </div>
+        <div class ="rating-details">
+            <span>Difficulty: ${data.avgDifficulty}</span>
+            <span>${Math.round(data.wouldTakeAgainPercent)}% would take again</span>
+            <span>${data.numRatings} ratings</span>
+        </div>
     </div>
     `;
     cell.innerHTML = '';
