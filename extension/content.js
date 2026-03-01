@@ -14,7 +14,7 @@ function injectOverview(cell, data) {
     const ratingColor = getRatingColor(data.avgRating);
     overview.innerHTML = `
     <a href="https://www.ratemyprofessors.com/professor/${data.legacyId}" target="_blank">
-            ${data.firstName} ${data.lastName}
+            ${data.firstName} ${data.lastName} ↗
     </a>
     <div class="professor-stats">
         <div class="rating-box" style="background:${ratingColor}">
@@ -38,7 +38,12 @@ function injectNotFound(cell, name) {
     overview.innerHTML = `
     <span class ="professor-name-plain">${name}</span>
     <div class= "professor-stats">
-        <span>ERROR: RMP Data Not Found.</span>
+        <div class="rating-box" style="background:#666".
+            <span class="rating-number">N/A</span>
+        </div>
+        <div class="rating-details">
+            <span> No RMP data found.</span>
+        </div>
     </div>
     `;
     cell.innerHTML = '';

@@ -2,12 +2,14 @@
     position: relative;
     display: inline-block;
     cursor: pointer;
+    font-family: sans-serif;
 }
 
 .professor-stats {
     display: none;
     position: absolute;
-    bottom: 100%;
+    bottom: auto;
+    top: 100%;
     left: 0;
     z-index: 9999;
     background: #101820;
@@ -22,15 +24,30 @@
     min-width: 220px;
 }
 
+.professor-name {
+    color: #005035;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    display: block;
+}
+
 
 .professor-name:hover {
     text-decoration: underline;
 }
 
-.professor-name-plain {
-    font-size: 12px;
-    font-weight: 600;
-    color: #333;
+.professor-name, .professor-name-plain {
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    white-space: nowrap;
 }
 
 .professor-container:hover .professor-stats {
@@ -48,19 +65,19 @@
     align-items: center;
     justify-content:center;
     border-radius: 6px;
-    padding: 8px 12p;
+    padding: 8px 12px;
     min-width: 52px;
 }
 
 .rating-number {
-    font-size: 22px;
+    font-size: 27px;
     font-weight: 700;
     color: white;
     line-height: 1;
 }
 
 .rating-label {
-    font-size: 10px;
+    font-size: 15px;
     color: rgba(255, 255, 255, 0.7)
 }
 
