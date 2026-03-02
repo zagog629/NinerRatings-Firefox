@@ -13,8 +13,9 @@ function injectOverview(cell, data) {
     overview.className = 'professor-container';
     const ratingColor = getRatingColor(data.avgRating);
     overview.innerHTML = `
-    <a href="https://www.ratemyprofessors.com/professor/${data.legacyId}" target="_blank">
-            ${data.firstName} ${data.lastName} ↗
+    <a class="professor-name" href="https://www.ratemyprofessors.com/professor/${data.legacyId}" target="_blank">
+        <span class="rating-dot" style="background:${ratingColor}"></span>    
+        ${data.firstName} ${data.lastName} ↗
     </a>
     <div class="professor-stats">
         <div class="rating-box" style="background:${ratingColor}">
@@ -36,9 +37,12 @@ function injectNotFound(cell, name) {
     const overview = document.createElement('div');
     overview.className = 'professor-container'
     overview.innerHTML = `
-    <span class ="professor-name-plain">${name}</span>
+    <span class ="professor-name-plain">
+        <span class="rating-dot" style="background:#666"></span>
+        ${name}
+    </span>
     <div class= "professor-stats">
-        <div class="rating-box" style="background:#666"
+        <div class="rating-box" style="background:#666">
             <span class="rating-number">N/A</span>
         </div>
         <div class="rating-details">

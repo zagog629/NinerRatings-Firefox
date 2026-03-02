@@ -3,6 +3,8 @@
     display: inline-block;
     cursor: pointer;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    max-width: 100%;
+    min-width: 0;
 }
 
 .professor-stats {
@@ -43,7 +45,7 @@
 }
 
 .professor-name, .professor-name-plain {
-    max-width: 120px;
+    max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     display: block;
@@ -91,6 +93,15 @@
     font-size: 15px;
     color: #e0e0e0;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+.rating-dot {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    margin-right: 5px;
+    vertical-align: middle;
 }
 
 td[xe-field="instructor"] {
