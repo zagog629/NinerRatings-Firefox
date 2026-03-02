@@ -19,11 +19,34 @@
     padding: 10px 12px;
     white-space: nowrap;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     gap: 12px;
     min-width: 220px;
 }
+
+.professor-header {
+    width: 100%;
+    text-align: center;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    margin-bottom: 4px;
+}
+
+.professor-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+}
+
+.professor-full-name {
+    display: block;
+    font-size: 15px;
+    font-weight: 700;
+    color: white;
+}
+
 
 .professor-name {
     color: #005035;

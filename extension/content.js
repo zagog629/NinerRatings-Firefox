@@ -21,14 +21,19 @@ function injectOverview(cell, data) {
         ${data.firstName} ${data.lastName} ↗
     </a>
     <div class="professor-stats">
-        <div class="rating-box" style="background:${ratingColor}">
-            <span class="rating-number">${data.avgRating}</span>
-            <span class="rating-label">/ 5 </span>
+        <div class ="professor-header">
+            <span class="professor-full-name"><strong>${data.firstName} ${data.lastName}</strong></span>
         </div>
-        <div class ="rating-details">
-            <span>Difficulty: <strong>${data.avgDifficulty}</strong></span>
-            <span><strong>${wouldTakeAgain}%</strong> would take again</span>
-            <span><strong>${data.numRatings}</strong> ratings</span>
+        <div class="professor-row">
+            <div class="rating-box" style="background:${ratingColor}">
+                <span class="rating-number">${data.avgRating}</span>
+                <span class="rating-label">/ 5 </span>
+            </div>
+            <div class ="rating-details">
+                <span>Difficulty: <strong>${data.avgDifficulty}</strong></span>
+                <span><strong>${wouldTakeAgain}</strong> would take again</span>
+                <span><strong>${data.numRatings}</strong> ratings</span>
+            </div>
         </div>
     </div>
     `;
@@ -110,7 +115,7 @@ const observer = new MutationObserver(() => {
                 });
             } catch(e) {
                 anchor.textContent = name;
-                use.dataset.ninerProcessed ="";
+                cell.dataset.ninerProcessed ="";
             }
         }
     });
