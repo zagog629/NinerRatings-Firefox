@@ -12,6 +12,9 @@ function injectOverview(cell, data) {
     const overview = document.createElement('div');
     overview.className = 'professor-container';
     const ratingColor = getRatingColor(data.avgRating);
+    const wouldTakeAgain = data.wouldTakeAgainPercent === -1
+        ? "N/A"
+        : `${Math.round(data.wouldTakeAgainPercent)}%`;
     overview.innerHTML = `
     <a class="professor-name" href="https://www.ratemyprofessors.com/professor/${data.legacyId}" target="_blank">
         <span class="rating-dot" style="background:${ratingColor}"></span>    
@@ -24,7 +27,7 @@ function injectOverview(cell, data) {
         </div>
         <div class ="rating-details">
             <span>Difficulty: <strong>${data.avgDifficulty}</strong></span>
-            <span><strong>${Math.round(data.wouldTakeAgainPercent)}%</strong> would take again</span>
+            <span><strong>${wouldTakeAgain}%</strong> would take again</span>
             <span><strong>${data.numRatings}</strong> ratings</span>
         </div>
     </div>
