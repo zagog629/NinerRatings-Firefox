@@ -44,7 +44,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.professorName) {
         queryRMP(request.professorName)
             .then(data => {
-                if (data) {
+                if (data && data.numRatings > 0) {
                     sendResponse({success:true, data});
                 } else {
                     sendResponse({success: false, error: "Not found"});

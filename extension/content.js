@@ -63,13 +63,18 @@ const observer = new MutationObserver(() => {
         if (anchor) {
             const name = anchor.textContent.trim();
             anchor.textContent = '...';
-            chrome.runtime.sendMessage({ professorName: name }, (response) => {
-                if (response && response.success) {
-                    injectOverview(cell, response.data);
-                } else {
-                    injectNotFound(cell, name);
-                }
-            });
+            try {
+                chrome.runtime.sendMessage({ professorName: name }, (response) => {
+                    if (response && response.success) {
+                        injectOverview(cell, response.data);
+                    } else {
+                        injectNotFound(cell, name);
+                    }
+                });
+        } catch(e) {
+            anchor.textContent = name;
+            useCallback.dataset.ninerProcessed ="";
+        }
         }
     });
 });
