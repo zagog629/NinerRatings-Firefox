@@ -9,7 +9,6 @@
 
 .professor-stats {
     display: none;
-    position: absolute;
     bottom: auto;
     top: 0;
     left: 100%;
