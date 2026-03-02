@@ -22,9 +22,9 @@ function injectOverview(cell, data) {
             <span class="rating-label">/ 5 </span>
         </div>
         <div class ="rating-details">
-            <span>Difficulty: ${data.avgDifficulty}</span>
-            <span>${Math.round(data.wouldTakeAgainPercent)}% would take again</span>
-            <span>${data.numRatings} ratings</span>
+            <span>Difficulty: <strong>${data.avgDifficulty}</strong></span>
+            <span><strong>${Math.round(data.wouldTakeAgainPercent)}%</strong> would take again</span>
+            <span><strong>${data.numRatings}</strong> ratings</span>
         </div>
     </div>
     `;
@@ -38,7 +38,7 @@ function injectNotFound(cell, name) {
     overview.innerHTML = `
     <span class ="professor-name-plain">${name}</span>
     <div class= "professor-stats">
-        <div class="rating-box" style="background:#666".
+        <div class="rating-box" style="background:#666"
             <span class="rating-number">N/A</span>
         </div>
         <div class="rating-details">
