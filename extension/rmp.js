@@ -1,4 +1,4 @@
-const CACHE_DURATION = 7 * 24 * 60 * 60 * 1000; //1 day
+const CACHE_DURATION = 7 * 24 * 60 * 60 * 1000; //1 day cache size
 const CACHE_SIZE = 100;
 
 async function maintainCacheSize() {
@@ -92,8 +92,6 @@ async function queryRMP(name) {
 
     if (!professors.length) {
         await chrome.storage.local.set({ [cacheKey]: {data : null, timestamp: Date.now()}});
-        console.log('💾 Cached:', name);
-
         return null;
     }
 
@@ -103,6 +101,7 @@ async function queryRMP(name) {
     
     if (!match) {
         await chrome.storage.local.set({ [cacheKey]: { data: null, timestamp: Date.now()}});
+        return null;
     }
     
 

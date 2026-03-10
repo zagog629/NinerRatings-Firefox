@@ -8,17 +8,20 @@ function getRatingColor(rating) {
     }
 }
 
-function injectOverview(cell, data) {
+function injectOverview(cell, data, originalName) {
     const overview = document.createElement('div');
     overview.className = 'professor-container';
     const ratingColor = getRatingColor(data.avgRating);
+    const lastReview = data.lastRating
+        ? new Date(data.lastRating.replace(' +0000 UTC', 'Z').replace(' ', 'T')).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+        : null;
     const wouldTakeAgain = data.wouldTakeAgainPercent === -1
         ? "N/A"
         : `${Math.round(data.wouldTakeAgainPercent)}%`;
     overview.innerHTML = `
     <a class="professor-name" href="https://www.ratemyprofessors.com/professor/${data.legacyId}" target="_blank">
         <span class="rating-dot" style="background:${ratingColor}"></span>    
-        ${data.firstName} ${data.lastName} ↗
+        ${originalName} ↗
     </a>
     <div class="professor-stats">
         <div class ="professor-header">
@@ -35,6 +38,7 @@ function injectOverview(cell, data) {
                 <span><strong>${data.numRatings}</strong> ratings</span>
             </div>
         </div>
+        ${lastReview ? `<span class="last-review"><strong>Last reviewed: <em>${lastReview}</em></strong></span>` : ''}
     </div>
     `;
     cell.innerHTML = '';
@@ -112,7 +116,7 @@ const observer = new MutationObserver(() => {
                 try {
                     chrome.runtime.sendMessage({ professorName: name }, (response) => {
                         if (response && response.success) {
-                            injectOverview(wrapper, response.data);
+                            injectOverview(wrapper, response.data, name);
                         } else {
                             injectNotFound(wrapper, name);
                         }
