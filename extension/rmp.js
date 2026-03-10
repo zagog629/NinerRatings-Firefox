@@ -21,20 +21,22 @@ function namesMatch(searchName, firstName, lastName) {
         return true;
     }
 
+    
     const searchLast = search.split(' ').pop();
     const rmpLast = lastName.toLowerCase();
-    if (searchLast != rmpLast) {
+
+    if (searchLast !== rmpLast) {
         return false;
     }
-
+    
     const searchFirst = search.split(' ')[0];
     const rmpFirst = firstName.toLowerCase();
+
     if (rmpFirst.startsWith(searchFirst) || searchFirst.startsWith(rmpFirst)) {
         return true;
     }
     return false;
 }
-
 
 async function queryRMP(name) {
     const cacheKey = `rmp_${name.toLowerCase().trim()}`;
@@ -43,7 +45,6 @@ async function queryRMP(name) {
     const cached = stored[cacheKey];
 
     if (cached && (Date.now() - cached.timestamp) < CACHE_DURATION) {
-        console.log('Cache hit:', name, '| data:', cached.data === null ? 'null (not found)' : 'found');
         return cached.data;
     }
 
@@ -95,15 +96,18 @@ async function queryRMP(name) {
         return null;
     }
 
-    const match = professors.find(edge =>
-        namesMatch(name, edge.node.firstName, edge.node.lastName)
-    );
+    const matches = professors.filter(edge => {
+        return namesMatch(name, edge.node.firstName, edge.node.lastName)
+    });
     
-    if (!match) {
+    if (!matches.length) {
         await chrome.storage.local.set({ [cacheKey]: { data: null, timestamp: Date.now()}});
         return null;
     }
     
+    const match = matches.reduce((best, current) =>
+        current.node.numRatings > best.node.numRatings ? current : best
+    );
 
     const prof = match.node
     const lastRating = prof.ratings?.edges[0]?.node?.date || null;
