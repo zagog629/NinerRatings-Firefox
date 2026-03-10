@@ -126,6 +126,15 @@
     vertical-align: middle;
 }
 
+.low-ratings-warning {
+    margin-left: 3px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    display: block;
+    text-align: center;
+    width: 100%;
+}
+
 .last-review {
     font-size: 13px;
     color: rgba(255,255,255,0.5);

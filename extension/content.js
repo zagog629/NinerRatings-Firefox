@@ -18,6 +18,7 @@ function injectOverview(cell, data, originalName) {
     const wouldTakeAgain = data.wouldTakeAgainPercent === -1
         ? "N/A"
         : `${Math.round(data.wouldTakeAgainPercent)}%`;
+    const lowRatings = data.numRatings < 10;
     overview.innerHTML = `
     <a class="professor-name" href="https://www.ratemyprofessors.com/professor/${data.legacyId}" target="_blank">
         <span class="rating-dot" style="background:${ratingColor}"></span>    
@@ -38,6 +39,7 @@ function injectOverview(cell, data, originalName) {
                 <span><strong>${data.numRatings}</strong> ratings</span>
             </div>
         </div>
+        ${lowRatings ? `<span class="low-ratings-warning"><strong>⚠️ Low rating count</strong></span>` : ''}
         ${lastReview ? `<span class="last-review"><strong>Last reviewed: <em>${lastReview}</em></strong></span>` : ''}
     </div>
     `;
