@@ -2,6 +2,8 @@ const CACHE_DURATION = 7 * 24 * 60 * 60 * 1000; //1 week cache size
 const CACHE_SIZE = 100;
 const CACHE_VERSION = 'v1';
 const REPLACEMENTS = {
+    "Ree Linker": "Jeanne-Marie Linker",
+    "Hamid Baradaran Shoraka" : "Hamid Shoraka"
 };
 
 async function maintainCacheSize() {
@@ -34,8 +36,6 @@ function namesMatch(searchName, firstName, lastName) {
     
     const searchFirst = search.split(' ')[0];
     const rmpFirst = firstName.toLowerCase();
-    console.log('Comparing:', search, '|', fullRMP);
-
 
     if (rmpFirst.startsWith(searchFirst) || searchFirst.startsWith(rmpFirst)) {
         return true;
@@ -50,13 +50,9 @@ async function queryRMP(name) {
     const stored = await chrome.storage.local.get(cacheKey);
     const cached = stored[cacheKey];
 
-    console.log('Looking up cache key:', cacheKey);
     if (cached && (Date.now() - cached.timestamp) < CACHE_DURATION) {
-        console.log('Cache hit: ', cacheKey, '| data:', cached.data === null ? 'null' : 'found');
         return cached.data;
     }
-    console.log('Cache miss:', cacheKey);
-    console.log('Resolved name: ', name, '->', resolvedName);
 
     const headers = {
     "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Mobile Safari/537.36",
@@ -64,7 +60,6 @@ async function queryRMP(name) {
     "Origin": "https://www.ratemyprofessors.com",
     "Referer": "https://www.ratemyprofessors.com"
     }
-    console.log('Resolved name being searched:', resolvedName);
     const response = await fetch("https://www.ratemyprofessors.com/graphql", {
     method: "POST",
     headers: headers,
@@ -101,7 +96,6 @@ async function queryRMP(name) {
 
     const data = await response.json();
     const professors = data.data.newSearch.teachers.edges;
-    console.log('RMP results:', professors.map(e => `${e.node.firstName} ${e.node.lastName}`));
 
     if (!professors.length) {
         await chrome.storage.local.set({ [cacheKey]: {data : null, timestamp: Date.now()}});
@@ -141,7 +135,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                     sendResponse({success: false, error: "Not found"});
                 }
             })
-            .catch(err => sendResponse({sucess: false, error: err.message}));
+            .catch(err => sendResponse({success: false, error: err.message}));
         return true;
     }
 });

@@ -3,6 +3,8 @@
     "name": "NinerRatings",
     "version": "1.0",
     "description": "Chrome extension to improve UNCC class registration and browse process",
+    "author": "austinkmangold@gmail.com",
+    "homepage_url": "https://github.com/ausmango/NinerRatings",
     "permissions": ["storage"],
     "content_scripts": [
         {
