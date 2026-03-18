@@ -5,7 +5,16 @@ const REPLACEMENTS = {
     "Ree Linker": "Jeanne-Marie Linker",
     "Hamid Baradaran Shoraka" : "Hamid Shoraka",
     "Maria Guimaraes Biagini" : "Maria Guimaraes",
-    "Dave Naylor" : "David Naylor"
+    "Dave Naylor" : "David Naylor",
+    "Jay Wu" : "Jy Wu",
+    "Dave Weggel" : "David Weggel",
+    "Jeff Raquet" : "Jeffrey Raquet",
+    "Terence Fagan" : "Terrence Fagan",
+    "Garry Hodgins" : "Martin Hodgins",
+    "Kosta Falaggis" : "Konstantinos Falaggis",
+    "Jim Conrad" : "James Conrad",
+    "Nigel Zheng" : "Naiquan Zheng",
+    "Gary Teng" : "Teng Gary"
 }; //manual replacements
 
 async function maintainCacheSize() {
