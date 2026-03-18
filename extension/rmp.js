@@ -1,6 +1,6 @@
 const CACHE_DURATION = 3 * 24 * 60 * 60 * 1000; //3 day cache size
 const CACHE_SIZE = 100;
-const CACHE_VERSION = 'v1';
+const CACHE_VERSION = 'v2';
 const REPLACEMENTS = {
     "Ree Linker": "Jeanne-Marie Linker",
     "Hamid Baradaran Shoraka" : "Hamid Shoraka",
@@ -21,7 +21,11 @@ async function maintainCacheSize() {
 }
 
 function namesMatch(searchName, firstName, lastName) {
-    const normalize = (str) => str.toLowerCase().trim().replace(/[u2018\u2019]/g, "'");
+    const normalize = (str) => str.toLowerCase()
+    .trim()
+    .replace(/[u2018\u2019]/g, "'")
+    .replace(/[\u201C\u201D\u201E\u201F]/g, '"')
+    .replace(/\s+/g, ' ');
     const fullRMP = normalize(`${firstName} ${lastName}`);
     const search = normalize(searchName);
 
