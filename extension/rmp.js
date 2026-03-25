@@ -40,15 +40,24 @@ async function maintainCacheSize() {
     }
 }
 
+function normalize(str) {
+    return str.toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[\u200B-\u200D\uFEFF]/g, '')
+        .replace(/\u00A0/g, ' ')
+        .replace(/[‘’]/g, "'")
+        .replace(/[“”]/g, '"')
+        .trim()
+        .replace(/\s+/g, ' ');
+}
+
 function namesMatch(searchName, firstName, lastName) {
-    const normalize = (str) => str.toLowerCase()
-    .trim()
-    .replace(/[u2018\u2019]/g, "'")
-    .replace(/[\u201C\u201D\u201E\u201F]/g, '"')
-    .replace(/\s+/g, ' ');
     const fullRMP = normalize(`${firstName} ${lastName}`);
     const search = normalize(searchName);
 
+    console.log('[namesMatch] fullRMP char codes:', [...fullRMP].map(c => c.charCodeAt(0)));
+    console.log('[namesMatch] search char codes:', [...search].map(c => c.charCodeAt(0)));
     if (search === fullRMP) {
         return true;
     }
@@ -66,13 +75,23 @@ function namesMatch(searchName, firstName, lastName) {
     if (rmpFirst.startsWith(searchFirst) || searchFirst.startsWith(rmpFirst)) {
         return true;
     }
+
+    if (rmpFirst.slice(0, 3) === searchFirst.slice(0, 3)) {
+    return true;
+    }
     return false;
 }
 
 async function queryRMP(name) {
     const resolvedName = REPLACEMENTS[name] || name; 
-    const queryName = resolvedName.replace(/['\u2018\u2019]/g, '').trim();
+    const queryName = resolvedName.split(' ').pop().replace(/['\u2018\u2019]/g, '').trim();
     const cacheKey = `rmp_${CACHE_VERSION}_${resolvedName.toLowerCase().trim()}`;
+
+    console.log('[RMP] Name received:', name);
+    console.log('[RMP] Resolved name:', resolvedName);
+    console.log('[RMP] Query name:', queryName);
+    console.log('[RMP] Name char codes:', [...name].map(c => c.charCodeAt(0)));
+
 
     const stored = await chrome.storage.local.get(cacheKey);
     const cached = stored[cacheKey];

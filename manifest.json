@@ -15,7 +15,7 @@
             "css": ["extension/content.css"]
         }
     ],
-    "background" : {
+    "background": {
         "service_worker": "extension/rmp.js"
     },
     "host_permissions": [
