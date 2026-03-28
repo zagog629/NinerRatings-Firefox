@@ -83,19 +83,26 @@ function injectNotFound(cell, name) {
     overview.innerHTML = `
     <span class ="professor-name-plain">
         <span class="rating-dot" style="background:#666"></span>
-        ${name}
+        ${name} ↗
     </span>
     <div class= "professor-stats">
+        <div class="professor-header">
+            <span class="professor-full-name"><strong>${name}</strong></span>
+        </div>
         <div class="rating-box" style="background:#666">
             <span class="rating-number">N/A</span>
         </div>
         <div class="rating-details">
-            <span> No RMP data found.</span>
-        </div>
+            <span>Click name to search on RMP</span>
     </div>
     `;
     cell.innerHTML = '';
     cell.appendChild(overview);
+
+    overview.addEventListener('click', () => {
+    window.open(`https://www.ratemyprofessors.com/search/professors/1253?q=${encodeURIComponent(name)}`, '_blank');
+    });
+
 
     overview.addEventListener('mouseenter', () => {
         const stats = overview.querySelector('.professor-stats');

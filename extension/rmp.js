@@ -9,7 +9,6 @@ const REPLACEMENTS = {
     "Jay Wu" : "Jy Wu",
     "Dave Weggel" : "David Weggel",
     "Jeff Raquet" : "Jeffrey Raquet",
-    "Terence Fagan" : "Terrence Fagan",
     "Garry Hodgins" : "Martin Hodgins",
     "Kosta Falaggis" : "Konstantinos Falaggis",
     "Jim Conrad" : "James Conrad",
@@ -20,11 +19,11 @@ const REPLACEMENTS = {
     "Tom Moyer" : "Thomas Moyer",
     "Chao Wang" : "Wiechao Wang",
     "Carmen Soliz Urrutia" : "Maria Carmen Soliz Urrutia",
-    "Jeffrey Leak" : "Jeffery Leak",
     "Katie Hogan" : "Kathleen Hogan",
     "Juan Meneses Naranjo" : "Juan Meneses",
     "Becky Roeder" : "Rebecca Roeder",
-    "Pilar Blitvich" : "Maria Pilar Garces-Conejos Blitvich"
+    "Pilar Blitvich" : "Maria Pilar Garces-Conejos Blitvich",
+    "Xingjie Li" : "Xingjie Li"
 }; //manual replacements
 
 async function maintainCacheSize() {
@@ -33,7 +32,7 @@ async function maintainCacheSize() {
         .filter(([, value]) => value && value.timestamp)
         .sort(([, a], [, b]) => a.timestamp - b.timestamp);
 
-    if (entries.length >= CACHE_SIZE) {
+    if (entries.length > CACHE_SIZE) {
         const toDelete = entries.slice(0, 50).map(([key]) => key);
         await chrome.storage.local.remove(toDelete);
     }
@@ -47,6 +46,7 @@ function normalize(str) {
         .replace(/\u00A0/g, ' ')
         .replace(/[‘’]/g, "'")
         .replace(/[“”]/g, '"')
+        .replace(/-/g, ' ')
         .trim()
         .replace(/\s+/g, ' ');
 }
@@ -55,50 +55,18 @@ function namesMatch(searchName, firstName, lastName) {
     const fullRMP = normalize(`${firstName} ${lastName}`);
     const search = normalize(searchName);
 
-    console.log('--- NAME MATCH DEBUG ---');
-
-    console.log('Search Name (raw):', searchName);
-    console.log('RMP Name (raw):', `${firstName} ${lastName}`);
-
-    console.log('Search (normalized):', search, '| length:', search.length);
-    console.log('RMP (normalized):', fullRMP, '| length:', fullRMP.length);
-
-    console.log(
-        'Search char codes:',
-        [...search].map(c => `${c}(${c.charCodeAt(0)})`)
-    );
-
-    console.log(
-    'RMP char codes:',
-    [...fullRMP].map(c => `${c}(${c.charCodeAt(0)})`)
-);
-    if (search === fullRMP) {
+       if (search === fullRMP) {
         return true;
     }
 
     const searchLast = search.split(' ').pop();
-    const rmpLast = lastName.toLowerCase();
-
-    if (searchLast !== rmpLast) {
-        return false;
-    }
     
-    const searchFirst = search.split(' ')[0];
-    const rmpFirst = firstName.toLowerCase();
-    
-    if (rmpFirst.startsWith(searchFirst) || searchFirst.startsWith(rmpFirst)) {
-        return true;
-    }
-
-    if (rmpFirst.slice(0, 3) === searchFirst.slice(0, 3)) {
-    return true;
-    }
-
     const searchParts = search.split(' ');
     const rmpParts = fullRMP.split(' ');
 
     const searchFirstFull = searchParts[0];
     const searchLastFull = searchParts[searchParts.length - 1];
+    
     const rmpFirstFull = rmpParts[0];
     const rmpLastFull = rmpParts[rmpParts.length - 1];
 
@@ -106,12 +74,16 @@ function namesMatch(searchName, firstName, lastName) {
         return true;
     }
 
+    const rmpLastParts = normalize(lastName).split(' ');
+    if (!rmpLastParts.includes(searchLast)) {
+        return false;
+    }
+
     if (
         (rmpFirstFull.startsWith(searchFirstFull.slice(0, 3)) ||
          searchFirstFull.startsWith(rmpFirstFull.slice(0, 3))) &&
         searchLastFull === rmpLastFull
-    ) {
-        return true;
+    ) {    return true;
     }
 
     return false;
@@ -121,13 +93,6 @@ async function queryRMP(name) {
     const resolvedName = REPLACEMENTS[name] || name; 
     const queryName = normalize(resolvedName).split(' ').pop();
     const cacheKey = `rmp_${CACHE_VERSION}_${resolvedName.toLowerCase().trim()}`;
-
-    console.log('[RMP] Name received:', name);
-    console.log('[RMP] Resolved name:', resolvedName);
-    console.log('[RMP] Query name:', queryName);
-    console.log('[RMP] Name char codes:', [...name].map(c => c.charCodeAt(0)));
-
-
     const stored = await chrome.storage.local.get(cacheKey);
     const cached = stored[cacheKey];
 
@@ -175,7 +140,16 @@ async function queryRMP(name) {
         })
     });
 
-    const data = await response.json();
+    let data;
+    try {
+        data = await response.json();
+    } catch(e) {
+        return null;
+    }
+    
+    if (!data?.data?.newSearch?.teachers?.edges) {
+        return null;
+    }
     const professors = data.data.newSearch.teachers.edges;
 
     if (!professors.length) {
