@@ -22,8 +22,7 @@ const REPLACEMENTS = {
     "Katie Hogan" : "Kathleen Hogan",
     "Juan Meneses Naranjo" : "Juan Meneses",
     "Becky Roeder" : "Rebecca Roeder",
-    "Pilar Blitvich" : "Maria Pilar Garces-Conejos Blitvich",
-    "Xingjie Li" : "Xingjie Li"
+    "Pilar Blitvich" : "Maria Pilar Garces-Conejos Blitvich"
 }; //manual replacements
 
 async function maintainCacheSize() {

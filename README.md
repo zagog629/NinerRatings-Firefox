@@ -1,4 +1,6 @@
 # NinerRatings ⛏️
+As Seen on Niner Times!
+
 Tired of manually looking up every professor to see their ratings? I built NinerRatings to help Charlotte students and their registration process. Instead of frantically switching between tabs to pick the best option, this extension directly embeds the data right in your portal!
 
 ## Link
@@ -16,10 +18,16 @@ Web Store: https://chromewebstore.google.com/detail/ninerratings/fiboihoabbagmck
 - 3-day Chrome Storage caching for near-instant repeat lookups
 
 ## Version
-Current version: **1.0 INITIAL RELEASE**
+Current version: **1.1**
+1.1 ADDITIONS:
+- Professors with 'N/A' data have search-up links to RMP
+
+- Added more name-matching coverage
+
+- Added professor name to N/A data box
 
 ## Disclaimer
-NOTE: Rate My Professors is an unofficial website that is utilized by students. All reviews are to be viewed with skepticism.
+Rate My Professors is an unofficial website that is utilized by students. All reviews are to be viewed with skepticism.
 
 - **AVAILABILITY** - This extension only works on Charlotte's self service registration portal/browse class search, and no other university.
 

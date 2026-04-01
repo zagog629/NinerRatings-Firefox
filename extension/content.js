@@ -94,6 +94,7 @@ function injectNotFound(cell, name) {
         </div>
         <div class="rating-details">
             <span>Click name to search on RMP</span>
+        </div>
     </div>
     `;
     cell.innerHTML = '';
