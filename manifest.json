@@ -1,7 +1,7 @@
 {
     "manifest_version":3,
     "name":"NinerRatings",
-    "version":"0.3",
+    "version":"1.1",
     "description":"Firefox extension that embeds RateMyProfessors data directly into UNCC course registration portal.",
     "author":"contact@zagog629.8shield.net",
     "homepage_url":"https://github.com/zagog629/NinerRatings-Firefox",
