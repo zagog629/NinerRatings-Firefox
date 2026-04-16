@@ -1,10 +1,12 @@
-# NinerRatings ⛏️
+# NinerRatings for Firefox 🦊⛏️
 As Seen on Niner Times!
+
+> **Credit & Attribution:** This is a Firefox port of the original NinerRatings Chrome extension. **All credit for the original creation, logic, and design goes entirely to the original developer.** You can find the original Chrome version [right here](https://github.com/ausmango/NinerRatings).
 
 Tired of manually looking up every professor to see their ratings? I built NinerRatings to help Charlotte students and their registration process. Instead of frantically switching between tabs to pick the best option, this extension directly embeds the data right in your portal!
 
 ## Link
-Web Store: https://chromewebstore.google.com/detail/ninerratings/fiboihoabbagmckkhjbbeiaoiiimfaec 
+Firefox Add-ons: [Insert your Firefox Add-on link here]
 
 ## Features
 - 🔗 Embedded hyperlink in each professor name for fast look-up
