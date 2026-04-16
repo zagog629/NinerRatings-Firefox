@@ -20,7 +20,7 @@ Firefox Add-ons: https://addons.mozilla.org/en-US/firefox/addon/ninerratings/
 - 3-day Chrome Storage caching for near-instant repeat lookups
 
 ## Version
-Current version: **1.1**
+Current version: **1.1.4**
 1.1 ADDITIONS:
 - Professors with 'N/A' data have search-up links to RMP
 
