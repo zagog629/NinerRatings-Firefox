@@ -1,35 +1,52 @@
 {
-    "manifest_version": 3,
-    "name": "NinerRatings",
-    "version": "1.1",
-    "description": "Chrome extension that embeds RateMyProfessors data directly into UNCC course registration portal.",
-    "author": "austinkmangold@gmail.com",
-    "homepage_url": "https://github.com/ausmango/NinerRatings",
-    "permissions": ["storage"],
-    "content_scripts": [
+    "manifest_version":3,
+    "name":"NinerRatings",
+    "version":"0.3",
+    "description":"Firefox extension that embeds RateMyProfessors data directly into UNCC course registration portal.",
+    "author":"contact@zagog629.8shield.net",
+    "homepage_url":"https://github.com/zagog629/NinerRatings-Firefox",
+    "browser_specific_settings":{
+        "gecko":{
+            "id":"contact@zagog629.8shield.net"
+        }
+    },
+    "permissions":[
+        "storage"
+    ],
+    "content_scripts":[
         {
-            "matches": [
-        "*://selfservice.uncc.edu/StudentRegistrationSsb/*"
+            "matches":[
+                "*://selfservice.uncc.edu/StudentRegistrationSsb/*"
             ],
-            "js": ["extension/content.js"],
-            "css": ["extension/content.css"]
+            "js":[
+                "extension/content.js"
+            ],
+            "css":[
+                "extension/content.css"
+            ]
         }
     ],
-    "background": {
-        "service_worker": "extension/rmp.js"
+    "background":{
+        "scripts":[
+            "extension/rmp.js"
+        ]
     },
-    "host_permissions": [
+    "host_permissions":[
         "https://www.ratemyprofessors.com/*"
     ],
-    "web_accessible_resources": [
+    "web_accessible_resources":[
         {
-            "resources": ["fonts/*"],
-            "matches": ["*://selfservice.uncc.edu/*"]
+            "resources":[
+                "fonts/*"
+            ],
+            "matches":[
+                "*://selfservice.uncc.edu/*"
+            ]
         }
     ],
-    "icons": {
-        "16": "icons/logo128px.png",
-        "48": "icons/logo128px.png",
-        "128": "icons/logo128px.png"
+    "icons":{
+        "16":"icons/logo128px.png",
+        "48":"icons/logo128px.png",
+        "128":"icons/logo128px.png"
     }
 }
